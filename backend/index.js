@@ -79,28 +79,33 @@ app.post("/login", (req, res) => {
 });
 
 
-//Product schema
+//product section
+
 const schemaProduct = mongoose.Schema({
   name: String,
-  category: String,
+  category:String,
   image: String,
   price: String,
-  description: String
+  description: String,
 });
-
 const productModel = mongoose.model("product",schemaProduct)
 
-//save product in data
+
+
+//save product in data 
 //api
 app.post("/uploadProduct",async(req,res)=>{
-  // console.log(req.body)
-  const data = await productModel(req.body)
-  const datasave = await data.save()
-  res.send({message : "Upload successfully"})
+    // console.log(req.body)
+    const data = await productModel(req.body)
+    const datasave = await data.save()
+    res.send({message : "Upload successfully"})
 })
 
 //
-
+app.get("/product",async(req,res)=>{
+  const data = await productModel.find({})
+  res.send(JSON.stringify(data))
+})
 
 
 
